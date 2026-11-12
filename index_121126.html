@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luis Martín Encinar</title>
+<meta name="description" content="Luis Martín Encinar: postdoctoral researcher at the Universidad de Valladolid working on machine-learning interatomic potentials, atomistic simulations and multiscale modelling of materials.">
+<!--
+  HOW TO EDIT THIS SITE
+  - Publications live in the PUBS array inside the <script> at the bottom.
+  - Profile links (Scholar, ORCID, GitHub...) live in the LINKS array.
+  - The photo is embedded in the page (data URI), so index.html works on its own.
+  - GitHub Pages: upload this file as index.html to the repository <user>.github.io.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one centred reading column like al-folio, sticky top nav, four hash-routed views (about, research, publications, cv). */
+:root {
+  --bg: #fcfcfd;
+  --surface: #f1f4f8;
+  --ink: #1a2230;
+  --muted: #5a6577;
+  --rule: #dfe4eb;
+  --accent: #2b57c9;
+  --si: #8695ad;
+  --ge: #cc832e;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --col: 860px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141b;
+    --surface: #171e28;
+    --ink: #e3e8ef;
+    --muted: #9aa6b7;
+    --rule: #263040;
+    --accent: #88a9ff;
+    --si: #6f819c;
+    --ge: #e6a35a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141b;
+  --surface: #171e28;
+  --ink: #e3e8ef;
+  --muted: #9aa6b7;
+  --rule: #263040;
+  --accent: #88a9ff;
+  --si: #6f819c;
+  --ge: #e6a35a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { text-wrap: balance; }
+img, canvas { max-width: 100%; display: block; }
+
+/* ---------- nav ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.topbar-inner {
+  max-width: var(--col); margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 56px; flex-wrap: wrap;
+}
+.brand { font-family: var(--font-display); font-size: 18px; color: var(--ink); white-space: nowrap; }
+.brand b { font-weight: 600; }
+.brand span { font-weight: 300; }
+.brand:hover { text-decoration: none; }
+.nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav a { color: var(--muted); padding: 6px 10px; border-radius: 6px; font-size: 16px; }
+.nav a:hover { color: var(--ink); background: var(--surface); text-decoration: none; }
+.nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+/* ---------- page ---------- */
+main { max-width: var(--col); margin: 0 auto; padding: 40px 20px 24px; }
+.view[hidden] { display: none; }
+.page-title { font-family: var(--font-display); font-weight: 600; font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+.page-lede { color: var(--muted); margin: 0 0 28px; max-width: 62ch; }
+h2.section {
+  font-family: var(--font-display); font-weight: 600; font-size: 24px;
+  margin: 44px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+}
+h2.section a { color: inherit; }
+p { margin: 0 0 14px; max-width: 68ch; }
+.muted { color: var(--muted); }
+
+/* ---------- about header ---------- */
+.hero-name { font-family: var(--font-display); font-size: 44px; line-height: 1.1; margin: 0 0 6px; }
+.hero-name b { font-weight: 600; }
+.hero-name span { font-weight: 300; }
+.tagline { color: var(--muted); font-size: 17px; margin: 0 0 26px; letter-spacing: 0.01em; }
+.about-grid { display: grid; grid-template-columns: 1fr 240px; gap: 36px; align-items: start; }
+.profile { display: grid; gap: 12px; }
+.profile-pic {
+  width: 100%; aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--rule);
+}
+.profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+.profile-cap { font-size: 14px; line-height: 1.45; color: var(--muted); }
+.profile-cap strong { color: var(--ink); font-weight: 600; }
+.profile-ids { display: flex; flex-wrap: wrap; gap: 6px; }
+.profile-ids a { font-size: 13px; padding: 3px 8px; border: 1px solid var(--rule); border-radius: 5px; color: var(--ink); }
+.profile-ids a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+ul.focus { padding-left: 20px; margin: 0 0 16px; max-width: 68ch; }
+ul.focus li { margin-bottom: 8px; }
+.open-to {
+  border-left: 3px solid var(--accent); background: var(--surface);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 18px 0 0; max-width: 68ch;
+}
+
+/* ---------- news ---------- */
+table.news { border-collapse: collapse; width: 100%; }
+table.news th, table.news td { text-align: left; vertical-align: top; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+table.news th { width: 104px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; padding-right: 16px; }
+table.news tr:last-child th, table.news tr:last-child td { border-bottom: 0; }
+
+/* ---------- publications ---------- */
+ol.pubs, ul.pubs { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.pub { display: grid; grid-template-columns: 150px 1fr; gap: 20px; }
+.thumb-wrap { position: relative; }
+.thumb { width: 150px; height: 104px; border-radius: 6px; background: var(--surface); border: 1px solid var(--rule); }
+.venue-badge {
+  position: absolute; left: 6px; top: 6px;
+  background: var(--accent); color: var(--bg); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.04em; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+}
+.venue-badge.prep { background: var(--muted); }
+.pub-title { font-weight: 600; line-height: 1.35; margin-bottom: 2px; }
+.pub-authors { font-size: 15.5px; }
+.pub-authors .me { font-weight: 700; text-decoration: underline; text-decoration-color: var(--ge); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.pub-venue { font-size: 15.5px; color: var(--muted); }
+.pub-venue em { color: var(--ink); }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }
+.badge { font-size: 12px; line-height: 1; padding: 4px 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); }
+.badge.role { border-color: color-mix(in srgb, var(--ge) 55%, var(--rule)); color: var(--ink); }
+.badge.oa { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); color: var(--accent); }
+.pub-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.btn {
+  font: inherit; font-size: 13px; line-height: 1; padding: 6px 10px; border-radius: 5px;
+  border: 1px solid var(--accent); color: var(--accent); background: transparent; cursor: pointer;
+}
+.btn:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+.btn[aria-expanded="true"] { background: var(--accent); color: var(--bg); }
+.pub-abs { margin-top: 10px; font-size: 15.5px; padding: 10px 14px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); max-width: 68ch; }
+.pub-bib { margin-top: 10px; position: relative; }
+.pub-bib pre {
+  margin: 0; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 12px 14px; overflow-x: auto; white-space: pre;
+}
+.pub-bib .copy { position: absolute; right: 8px; top: 8px; background: var(--bg); }
+.year-group { display: grid; grid-template-columns: 72px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--rule); }
+.year-group:first-of-type { border-top: 0; }
+.year { font-family: var(--font-display); font-size: 24px; font-weight: 300; color: var(--muted); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.year.small { font-size: 17px; font-family: var(--font-body); font-weight: 600; }
+.legend { font-size: 14px; color: var(--muted); margin: -12px 0 18px; }
+.counts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; }
+.count { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 12px; font-size: 14px; color: var(--muted); }
+.count b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+/* ---------- research ---------- */
+.topic { display: grid; gap: 14px; padding: 8px 0 26px; }
+.topic + .topic { border-top: 1px solid var(--rule); padding-top: 26px; }
+.topic-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.topic h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; margin: 0; }
+.period { font-size: 13px; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 2px 9px; }
+.period.now { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); }
+.topic-fig { width: 100%; height: 180px; border-radius: 8px; background: var(--surface); border: 1px solid var(--rule); }
+.topic-fig-cap { font-size: 13.5px; color: var(--muted); margin-top: -6px; }
+.related { font-size: 15px; color: var(--muted); }
+.tools { display: grid; gap: 12px; }
+.tool-row { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: start; }
+.tool-row > span { color: var(--muted); font-size: 15px; padding-top: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14px; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); }
+
+/* ---------- cv ---------- */
+.cv-row { display: grid; grid-template-columns: 150px 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.cv-row:last-child { border-bottom: 0; }
+.cv-date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 15px; padding-top: 1px; }
+.cv-what strong { font-weight: 600; }
+.cv-what .sub { color: var(--muted); font-size: 15.5px; display: block; }
+.cv-what ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); font-size: 15.5px; }
+.kind { display: inline-block; font-size: 12px; line-height: 1; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); margin-right: 6px; vertical-align: 2px; }
+.kind.oral { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule)); color: var(--accent); }
+.honours { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+
+/* ---------- links / contact ---------- */
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.link-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; padding: 6px 12px; border-radius: 6px;
+  border: 1px solid var(--rule); color: var(--ink); background: var(--bg);
+}
+a.link-chip:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.email-text { font-family: var(--font-mono); font-size: 14px; }
+
+footer {
+  max-width: var(--col); margin: 40px auto 0; padding: 18px 20px 40px;
+  border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px;
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  body { font-size: 16.5px; }
+  main { padding-top: 28px; }
+  .hero-name { font-size: 36px; }
+  .about-grid { grid-template-columns: 1fr; gap: 20px; }
+  .profile { grid-template-columns: 130px 1fr; align-items: center; order: -1; }
+  .profile-ids { grid-column: 1 / -1; }
+  .pub { grid-template-columns: 1fr; gap: 10px; }
+  .thumb { width: 100%; height: 120px; }
+  .year-group { grid-template-columns: 1fr; gap: 6px; }
+  .cv-row, .tool-row { grid-template-columns: 1fr; gap: 2px; }
+  table.news th { width: 84px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#about"><b>Luis</b> <span>Martín Encinar</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#about" data-view="about">about</a>
+      <a href="#research" data-view="research">research</a>
+      <a href="#publications" data-view="publications">publications</a>
+      <a href="#cv" data-view="cv">cv</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- =================== ABOUT =================== -->
+<section class="view" id="view-about" data-name="about">
+  <h1 class="hero-name"><b>Luis</b> <span>Martín Encinar</span></h1>
+  <p class="tagline">Atomistic simulations · Machine learning · Multiscale modelling</p>
+
+  <div class="about-grid">
+    <div>
+      <p>I am a postdoctoral researcher in the <a href="https://nanoestructuras.uva.es/">Nanostructures Physics Group</a> at the Universidad de Valladolid (Spain). I work in computational materials science, combining first-principles calculations, molecular dynamics and machine learning to understand materials at the atomic scale and to make their simulation faster and more predictive.</p>
+      <p>My current and recent work covers three lines:</p>
+      <ul class="focus">
+        <li><strong>Machine-learning interatomic potentials for hydrogen storage.</strong> Fine-tuning and validating universal MLIPs against DFT for transition-metal-doped carbon materials, and running large-scale molecular dynamics of hydrogen adsorption and desorption.</li>
+        <li><strong>Ge heteroepitaxy on Si.</strong> Atom-by-atom simulations of surface diffusion, Si–Ge intermixing, strain relaxation and the nucleation of misfit dislocations during growth.</li>
+        <li><strong>Deep learning for continuum models.</strong> Convolutional neural networks that replace costly elasticity solvers in simulations of strained-film morphology, keeping finite-element accuracy over long time scales.</li>
+      </ul>
+
+      <h2 class="section">Short bio</h2>
+      <p>I received my PhD in Physics from the Universidad de Valladolid in June 2025, with Cum Laude and International Doctorate mentions. My thesis, <a href="https://uvadoc.uva.es/handle/10324/76343"><em>Multiscale modelling of Ge heteroepitaxy on Si</em></a>, was supervised by Luis A. Marqués and Lourdes Pelaz in the <a href="https://www.ele.uva.es/~mmm/">Multiscale Materials Modeling group</a>. In 2023 I spent six months as a visiting PhD student at the Università di Milano-Bicocca (Italy) with Francesco Montalenti, developing neural-network models for the growth of strained films.</p>
+      <p>Before my PhD I graduated in Physics at Valladolid (2018) and completed an MSc in Nuclear Physics at the Universidad Complutense de Madrid (2019), with a master's thesis on energy transport in optimized stellarators supervised at CIEMAT. Since October 2025 I work on hydrogen storage materials with machine-learning interatomic potentials.</p>
+      <p class="open-to">I am open to <strong>postdoctoral</strong> and <strong>industrial R&amp;D</strong> opportunities in computational materials science and machine learning for materials. Feel free to get in touch.</p>
+    </div>
+
+    <aside class="profile" aria-label="Profile">
+      <div class="profile-pic">
+        <img src="data:image/jpeg;base64,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" alt="Portrait of Luis Martín Encinar" width="560" height="560">
+      </div>
+      <div class="profile-cap">
+        <strong>Postdoctoral researcher</strong><br>
+        Nanostructures Physics Group<br>
+        Dept. of Theoretical, Atomic and Optical Physics<br>
+        Universidad de Valladolid, Spain
+      </div>
+      <div class="profile-ids">
+        <a href="https://scholar.google.com/citations?user=UXSOlDgAAAAJ&amp;hl=en">Scholar</a>
+        <a href="https://orcid.org/0000-0002-4839-7604">ORCID</a>
+        <a href="https://github.com/luimaren">GitHub</a>
+        <a href="https://www.linkedin.com/in/luis-mart%C3%ADn-92b64a179">LinkedIn</a>
+      </div>
+    </aside>
+  </div>
+
+  <h2 class="section">News</h2>
+  <table class="news">
+    <tbody>
+      <tr><th scope="row">May 2026</th><td>Poster at <a href="https://phantomsfoundation.com/AI4AM/2026/Abstracts/AI4AM2026_Martin_Encinar_Luis_131.pdf">AI4AM 2026</a> (Madrid) on modelling hydrogen storage on 2D carbon platforms with universal MLIPs.</td></tr>
+      <tr><th scope="row">Apr 2026</th><td>Poster at the 4th General Meeting of <a href="https://cost-cosy.eu/">COST Action CA21101 (COSY)</a> in Madrid. I joined the Action in January 2026.</td></tr>
+      <tr><th scope="row">Oct 2025</th><td>Started as a postdoctoral researcher in the Nanostructures Physics Group (Universidad de Valladolid), working on hydrogen storage with machine-learning interatomic potentials.</td></tr>
+      <tr><th scope="row">Sep 2025</th><td>Our atomistic study of how misfit dislocations form during Ge epitaxy on Si is out in <a href="https://doi.org/10.1016/j.apsusc.2025.164547"><em>Applied Surface Science</em></a>.</td></tr>
+      <tr><th scope="row">Jun 2025</th><td>PhD defended at the Universidad de Valladolid, with Cum Laude and International Doctorate mentions.</td></tr>
+      <tr><th scope="row">Feb 2025</th><td>Paper on the prediction performance of a CNN for the surface elastic energy of strained films published in <a href="https://doi.org/10.1016/j.commatsci.2024.113657"><em>Computational Materials Science</em></a>.</td></tr>
+      <tr><th scope="row">Aug 2024</th><td>Deep learning accelerates simulations of strained-film growth with FEM accuracy: new paper in <a href="https://doi.org/10.1063/5.0221363"><em>APL Machine Learning</em></a>.</td></tr>
+      <tr><th scope="row">Jul 2024</th><td>Oral talk at <a href="https://phantomsfoundation.com/AI4AM/2024/Abstracts/AI4AM2024_Martin-Encinar_Luis_5.pdf">AI4AM 2024</a> (Barcelona) on deep learning of the surface elastic chemical potential.</td></tr>
+      <tr><th scope="row">May 2024</th><td>Oral talk at the E-MRS 2024 Spring Meeting (Strasbourg).</td></tr>
+      <tr><th scope="row">Apr 2023</th><td>Started a six-month research stay at the Università di Milano-Bicocca with Prof. Francesco Montalenti.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section"><a href="#publications">Selected publications</a></h2>
+  <ol class="pubs" id="selected-pubs"></ol>
+
+  <h2 class="section">Contact</h2>
+  <p>Email me at <span class="email-text">luis.martin.encinar@uva.es</span>. I am happy to discuss collaborations, positions and anything related to atomistic modelling and machine learning for materials.</p>
+  <div class="links" id="links"></div>
+</section>
+
+<!-- =================== RESEARCH =================== -->
+<section class="view" id="view-research" data-name="research" hidden>
+  <h1 class="page-title">Research</h1>
+  <p class="page-lede">I build simulation workflows that connect scales: first-principles data train fast models, atomistic simulations reveal mechanisms, and machine learning lets larger models reach realistic sizes and times.</p>
+
+  <article class="topic">
+    <div class="topic-head"><h3>Machine-learning potentials for hydrogen storage</h3><span class="period now">2025 – now</span></div>
+    <canvas class="topic-fig" data-motif="hydrogen" data-seed="9" aria-hidden="true"></canvas>
+    <p class="topic-fig-cap">Sketch: a carbon layer (grey) doped with transition-metal atoms (amber) that bind hydrogen molecules (blue).</p>
+    <p>Storing hydrogen safely and densely is one of the bottlenecks of a hydrogen economy. Carbon materials doped with transition metals can bind hydrogen at useful energies, but simulating adsorption and desorption at realistic temperatures and pressures is out of reach of DFT alone.</p>
+    <p>I fine-tune and validate universal machine-learning interatomic potentials for these systems. The work involves generating and curating large DFT and ab initio MD datasets (defective structures, adsorption configurations and out-of-equilibrium geometries), benchmarking frameworks such as MACE, NequIP and UPET against DFT, and running large-scale molecular dynamics of hydrogen uptake and release.</p>
+    <p class="related">Related: <a href="#publications" data-pub="prep-umlip">manuscript in preparation</a> · <a href="https://phantomsfoundation.com/AI4AM/2026/Abstracts/AI4AM2026_Martin_Encinar_Luis_131.pdf">AI4AM 2026 poster</a></p>
+  </article>
+
+  <article class="topic">
+    <div class="topic-head"><h3>Ge heteroepitaxy on Si, atom by atom</h3><span class="period">2019 – 2025</span></div>
+    <canvas class="topic-fig" data-motif="dislocation" data-seed="3" aria-hidden="true"></canvas>
+    <p class="topic-fig-cap">Sketch: a Ge film (amber) on Si (grey). The film has one column less than the substrate, so a misfit dislocation (⊥) relaxes the 4% lattice mismatch.</p>
+    <p>Ge and high-Ge SiGe layers grown on Si are key to modern CMOS and silicon photonics, but the 4% lattice mismatch between both materials drives intermixing, surface roughening and, beyond a critical thickness, the formation of misfit dislocations. I used classical molecular dynamics, benchmarked against experiments and ab initio calculations, to follow these processes atom by atom.</p>
+    <p>Full-process deposition simulations gave the key growth parameters: intermixing, surface roughness, critical thickness, layer completion and stress relaxation, which I turned into effective parameters for higher-level growth models. Targeted simulations then showed that dislocations nucleate in low-density amorphous pockets below surface valleys, which reorganize into half-loops whose threading arms follow the surface morphology.</p>
+    <p class="related">Related: <a href="#publications" data-pub="apsusc2025">Appl. Surf. Sci. 2025</a> · <a href="#publications" data-pub="ats2023">Adv. Theory Simul. 2023</a> · <a href="#publications" data-pub="cde2023md">CDE 2023</a> · <a href="#publications" data-pub="cde2018">CDE 2018</a></p>
+  </article>
+
+  <article class="topic">
+    <div class="topic-head"><h3>Deep learning for strained-film growth</h3><span class="period">2023 – 2025</span></div>
+    <canvas class="topic-fig" data-motif="cnn" data-seed="11" aria-hidden="true"></canvas>
+    <p class="topic-fig-cap">Sketch: a film profile h(x) (bottom) and the surface elastic energy density the network predicts from it (top line).</p>
+    <p>Continuum models of strained-film growth need the elastic energy at the film surface at every time step, and computing it with finite elements dominates the cost. During my stay at Milano-Bicocca I designed and trained convolutional neural networks in PyTorch that map a surface profile directly to its elastic energy density.</p>
+    <p>We quantified how prediction accuracy depends on the training data and on the features of the profiles, and plugged the network into surface-diffusion simulations of island formation and coarsening, keeping finite-element accuracy over long time scales and large domains. The training datasets are openly available on Materials Cloud.</p>
+    <p class="related">Related: <a href="#publications" data-pub="cms2025">Comput. Mater. Sci. 2025</a> · <a href="#publications" data-pub="aplml2024">APL Mach. Learn. 2024</a> · <a href="#publications" data-pub="mc2024a">datasets</a></p>
+  </article>
+
+  <article class="topic">
+    <div class="topic-head"><h3>Defects in silicon and SiC</h3><span class="period">2021 – 2023</span></div>
+    <canvas class="topic-fig" data-motif="cluster" data-seed="5" aria-hidden="true"></canvas>
+    <p class="topic-fig-cap">Sketch: phosphorus atoms (blue) surrounding vacancies (dashed) in the Si lattice.</p>
+    <p>Dopant–vacancy complexes control dopant activation in aggressively scaled silicon devices. With first-principles calculations we characterized P<sub>n</sub>V<sub>m</sub> clusters through their formation energies, dipole moments and local vibrational modes. Within a project on high-energy irradiation of semiconductors, I also studied the damage generated by low-energy collective collisions in SiC with molecular dynamics.</p>
+    <p class="related">Related: <a href="#publications" data-pub="cde2023pv">CDE 2023</a> · IBMM 2022 poster</p>
+  </article>
+
+  <h2 class="section">Methods and tools</h2>
+  <div class="tools">
+    <div class="tool-row"><span>Electronic structure</span><div class="chips"><span class="chip">VASP</span><span class="chip">Quantum ESPRESSO</span><span class="chip">DFT and ab initio MD</span></div></div>
+    <div class="tool-row"><span>Atomistic simulation</span><div class="chips"><span class="chip">LAMMPS</span><span class="chip">ASE</span><span class="chip">Atomsk</span><span class="chip">Empirical potentials</span></div></div>
+    <div class="tool-row"><span>Machine learning</span><div class="chips"><span class="chip">PyTorch</span><span class="chip">MACE</span><span class="chip">NequIP</span><span class="chip">UPET</span><span class="chip">CNN surrogates</span></div></div>
+    <div class="tool-row"><span>Programming</span><div class="chips"><span class="chip">Python</span><span class="chip">C++</span><span class="chip">MATLAB</span><span class="chip">Bash / Linux</span><span class="chip">Git</span><span class="chip">Jupyter</span></div></div>
+    <div class="tool-row"><span>Visualization</span><div class="chips"><span class="chip">OVITO</span><span class="chip">ParaView</span><span class="chip">VESTA</span><span class="chip">Inkscape</span></div></div>
+    <div class="tool-row"><span>Computing</span><div class="chips"><span class="chip">HPC (MareNostrum 5, MeluXina)</span><span class="chip">Google Cloud / Colab</span></div></div>
+  </div>
+</section>
+
+<!-- =================== PUBLICATIONS =================== -->
+<section class="view" id="view-publications" data-name="publications" hidden>
+  <h1 class="page-title">Publications</h1>
+  <p class="page-lede">Journal articles, conference proceedings, open datasets and thesis, newest first. Citations on <a href="https://scholar.google.com/citations?user=UXSOlDgAAAAJ&amp;hl=en">Google Scholar</a> and <a href="https://orcid.org/0000-0002-4839-7604">ORCID</a>.</p>
+  <div class="counts" id="pub-counts"></div>
+  <p class="legend">* equal contribution · † corresponding author · my name is underlined</p>
+  <div id="pub-years"></div>
+</section>
+
+<!-- =================== CV =================== -->
+<section class="view" id="view-cv" data-name="cv" hidden>
+  <h1 class="page-title">Curriculum vitae</h1>
+  <p class="page-lede">Research positions, education, projects and talks.</p>
+
+  <h2 class="section">Positions</h2>
+  <div class="cv-row"><div class="cv-date">Oct 2025 – now</div><div class="cv-what"><strong>Postdoctoral researcher</strong>, Nanostructures Physics Group, Universidad de Valladolid<span class="sub">Modelling hydrogen storage on 2D carbon platforms with machine-learning interatomic potentials.</span></div></div>
+  <div class="cv-row"><div class="cv-date">Sep 2020 – Aug 2025</div><div class="cv-what"><strong>Predoctoral researcher</strong>, Dpto. de Electricidad y Electrónica, Universidad de Valladolid<span class="sub">Multiscale modelling of the heteroepitaxial growth of Ge on Si (UVa predoctoral contract).</span></div></div>
+  <div class="cv-row"><div class="cv-date">Nov 2019 – Jul 2020</div><div class="cv-what"><strong>Research fellow</strong>, Dpto. de Electricidad y Electrónica, Universidad de Valladolid<span class="sub">Surface diffusion, island nucleation and interdiffusion during SiGe growth on Si (project TEC2017-86150-P).</span></div></div>
+
+  <h2 class="section">Research stays</h2>
+  <div class="cv-row"><div class="cv-date">Apr – Sep 2023</div><div class="cv-what"><strong>Visiting PhD student</strong>, Dept. of Materials Science, Università di Milano-Bicocca (Italy)<span class="sub">Supervised by Prof. Francesco Montalenti. Convolutional neural networks in PyTorch for the surface evolution of strained films over large domains and long times.</span></div></div>
+
+  <h2 class="section">Education</h2>
+  <div class="cv-row"><div class="cv-date">2020 – 2025</div><div class="cv-what"><strong>PhD in Physics</strong>, Universidad de Valladolid
+    <span class="sub">Thesis: <a href="https://uvadoc.uva.es/handle/10324/76343"><em>Multiscale modelling of Ge heteroepitaxy on Si</em></a>. Supervisors: Luis A. Marqués Cuesta and Lourdes Pelaz Montes. Committee: Anne Hemeryck, Giuseppe Fisicaro and Ruth Pinacho. Defended on 9 June 2025.</span>
+    <span class="honours"><span class="badge role">Cum Laude</span><span class="badge role">International Doctorate</span></span></div></div>
+  <div class="cv-row"><div class="cv-date">2018 – 2019</div><div class="cv-what"><strong>MSc in Nuclear Physics</strong>, Universidad Complutense de Madrid<span class="sub">Thesis on energy transport in optimized stellarators, supervised by Iván Calvo and José Luis Velasco (CIEMAT).</span></div></div>
+  <div class="cv-row"><div class="cv-date">2014 – 2018</div><div class="cv-what"><strong>BSc in Physics</strong>, Universidad de Valladolid<span class="sub">Thesis on modelling SiGe with empirical potentials, supervised by Iván Santos and Lourdes Pelaz.</span></div></div>
+
+  <h2 class="section">Research projects</h2>
+  <div class="cv-row"><div class="cv-date">2025 – now</div><div class="cv-what"><strong>Green hydrogen production on single-atom catalysts and storage on nanohydride platforms</strong><span class="sub">Agencia Estatal de Investigación, FEDER / European Union</span></div></div>
+  <div class="cv-row"><div class="cv-date">2021 – 2024</div><div class="cv-what"><strong>Atomistic modeling of high energy irradiation in semiconductors</strong><span class="sub">PID2020-115118GB-I00, Agencia Estatal de Investigación</span></div></div>
+  <div class="cv-row"><div class="cv-date">2019 – 2020</div><div class="cv-what"><strong>Atomistic modeling of epitaxial growth mechanisms of SiGe</strong><span class="sub">TEC2017-86150-P, Ministerio de Ciencia e Innovación (research grant holder)</span></div></div>
+  <div class="cv-row"><div class="cv-date">HPC</div><div class="cv-what">Principal investigator of a RES allocation on MareNostrum 5 (2025–26) and project manager of a EuroHPC Benchmark Access project on MareNostrum 5 and MeluXina (2026).</div></div>
+
+  <h2 class="section">Conferences</h2>
+  <div class="cv-row"><div class="cv-date">May 2026</div><div class="cv-what"><span class="kind">poster</span><strong>AI for Advanced Materials (AI4AM) 2026</strong>, Madrid<span class="sub">Modelling hydrogen storage on 2D carbon platforms with universal MLIPs</span></div></div>
+  <div class="cv-row"><div class="cv-date">Apr 2026</div><div class="cv-what"><span class="kind">poster</span><strong>4th General Meeting of COST Action CA21101 (COSY)</strong>, Madrid<span class="sub">Machine-learning interatomic potentials for hydrogen adsorption/desorption on transition-metal–carbon platforms</span></div></div>
+  <div class="cv-row"><div class="cv-date">Jul 2024</div><div class="cv-what"><span class="kind oral">oral</span><strong>AI for Advanced Materials (AI4AM) 2024</strong>, Barcelona<span class="sub">A deep learning approach of surface elastic chemical potential for accelerating simulations in strained films</span></div></div>
+  <div class="cv-row"><div class="cv-date">May 2024</div><div class="cv-what"><span class="kind oral">oral</span><strong>E-MRS 2024 Spring Meeting</strong>, Strasbourg<span class="sub">Machine learning approach of surface elastic chemical potential for morphological evolution of strained films</span></div></div>
+  <div class="cv-row"><div class="cv-date">Jun 2023</div><div class="cv-what"><span class="kind">poster</span><strong>14th Spanish Conference on Electron Devices (CDE)</strong>, Valencia<span class="sub">Molecular dynamics study of stress relaxation mechanisms during Ge deposition on Si(100) 2×1 substrates</span></div></div>
+  <div class="cv-row"><div class="cv-date">Jul 2022</div><div class="cv-what"><span class="kind">poster</span><strong>22nd International Conference on Ion Beam Modification of Materials (IBMM)</strong>, Lisbon<span class="sub">Atomistic study of damage generated from low energy collective collisions in SiC</span></div></div>
+  <div class="cv-row"><div class="cv-date">Jun 2022</div><div class="cv-what"><span class="kind">poster</span><strong>II EsDUVA Meeting of Young Researchers</strong>, Valladolid<span class="sub">Characterization of the fundamental atomistic mechanisms of Ge heteroepitaxy on Si</span></div></div>
+  <div class="cv-row"><div class="cv-date">Nov 2018</div><div class="cv-what"><span class="kind">poster</span><strong>Spanish Conference on Electron Devices (CDE)</strong>, Salamanca<span class="sub">Modeling SiGe through classical molecular dynamics simulations: chasing an appropriate empirical potential</span></div></div>
+
+  <h2 class="section">Teaching</h2>
+  <div class="cv-row"><div class="cv-date">2021 – 2024</div><div class="cv-what"><strong>Teaching assistant</strong>, Universidad de Valladolid (156 hours)
+    <ul>
+      <li>Digital Systems, BSc in Informatics Engineering: 30 h (2022/23) and 60 h (2023/24)</li>
+      <li>Signals and Systems, BSc in Physics: 36 h (2021/22)</li>
+      <li>Digital Electronics, BSc in Telecommunications Engineering: 30 h (2022/23)</li>
+    </ul></div></div>
+
+  <h2 class="section">Awards, networks and service</h2>
+  <div class="cv-row"><div class="cv-date">2020</div><div class="cv-what"><strong>Predoctoral contract</strong>, Universidad de Valladolid (competitive call), to carry out the PhD thesis.</div></div>
+  <div class="cv-row"><div class="cv-date">2026 – now</div><div class="cv-what"><strong>Member of COST Action CA21101</strong> “Confined molecular systems: from a new generation of materials to the stars” (<a href="https://cost-cosy.eu/">COSY</a>)</div></div>
+  <div class="cv-row"><div class="cv-date">2022 – 2025</div><div class="cv-what"><strong>Member of the Permanent Board</strong> of the Department of Electricity and Electronics, Universidad de Valladolid</div></div>
+
+  <h2 class="section">Languages</h2>
+  <div class="cv-row"><div class="cv-date">Spanish</div><div class="cv-what">Native</div></div>
+  <div class="cv-row"><div class="cv-date">English</div><div class="cv-what">Proficient (C1)</div></div>
+  <div class="cv-row"><div class="cv-date">Italian</div><div class="cv-what">Basic (A2)</div></div>
+</section>
+
+</main>
+
+<footer>
+  <span>© 2026 Luis Martín Encinar</span>
+  <span>Last updated: November 2026</span>
+</footer>
+
+<script>
+/* ======================= EDIT HERE ======================= */
+const LINKS = [
+  { label: "Email", url: "mailto:luis.martin.encinar@uva.es" },
+  { label: "Google Scholar", url: "https://scholar.google.com/citations?user=UXSOlDgAAAAJ&hl=en" },
+  { label: "ORCID", url: "https://orcid.org/0000-0002-4839-7604" },
+  { label: "GitHub", url: "https://github.com/luimaren" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/luis-mart%C3%ADn-92b64a179" },
+  { label: "UVa research portal", url: "https://portaldelaciencia.uva.es/investigadores/178681/detalle" },
+  { label: "Nanostructures Physics Group", url: "https://nanoestructuras.uva.es/" }
+];
+
+/* Publications. "me" = index of my name in authors; "equal" / "corr" = author indices.
+   type: journal | conference | dataset | thesis | prep (manuscript in preparation) */
+const PUBS = [
+  {
+    id: "prep-umlip", type: "prep", motif: "hydrogen", seed: 17, badge: "In prep.",
+    title: "Evaluation and fine-tuning of universal machine learning interatomic potentials for transition-metal-doped carbon materials",
+    authors: ["L. Martín-Encinar", "A. Castro", "E. Germán", "M. J. López"], me: 0,
+    venue: "Manuscript in preparation", roles: ["first author"]
+  },
+  {
+    id: "prep-disl", type: "prep", motif: "dislocation", seed: 29, badge: "In prep.",
+    title: "Surface defect-driven dislocations in Ge coherently grown on Si: a classical molecular dynamics approach",
+    authors: ["L. Martín-Encinar", "L. A. Marqués", "L. Pelaz"], me: 0,
+    venue: "Manuscript in preparation", roles: ["first author"]
+  },
+  {
+    id: "apsusc2025", type: "journal", year: 2025, selected: true, motif: "dislocation", seed: 3, badge: "ApSusc",
+    title: "Atomistic study of dislocation formation during Ge epitaxy on Si",
+    authors: ["L. Martín-Encinar", "L. A. Marqués", "I. Santos", "L. Pelaz"], me: 0, corr: [0],
+    venue: "<em>Applied Surface Science</em> 715, 164547 (2025)",
+    roles: ["first author", "corresponding author"], oa: true,
+    doi: "10.1016/j.apsusc.2025.164547", arxiv: "2507.05082", pdf: "https://uvadoc.uva.es/handle/10324/77892",
+    abs: "Classical molecular dynamics of Ge deposition on Si at 900–1000 K reproduces the main experimental features of the films: intermixing, critical thickness, dislocation types and surface morphology. Dislocations start in low-density amorphous pockets beneath valleys of the rough Ge surface. Atoms expelled from these pockets relieve stress and smooth the surface, and the pockets reorganize into dislocation half-loops whose threading arms travel along valleys and avoid islands, so the surface shape determines the resulting dislocation network.",
+    bib: `@article{MartinEncinar2025ApSusc,
+  author  = {Martín-Encinar, Luis and Marqués, Luis A. and Santos, Iván and Pelaz, Lourdes},
+  title   = {Atomistic study of dislocation formation during Ge epitaxy on Si},
+  journal = {Applied Surface Science},
+  volume  = {715},
+  pages   = {164547},
+  year    = {2025},
+  doi     = {10.1016/j.apsusc.2025.164547},
+  eprint  = {2507.05082},
+  archivePrefix = {arXiv}
+}`
+  },
+  {
+    id: "cms2025", type: "journal", year: 2025, selected: true, motif: "cnn", seed: 11, badge: "CMS",
+    title: "Quantitative analysis of the prediction performance of a Convolutional Neural Network evaluating the surface elastic energy of a strained film",
+    authors: ["L. Martín-Encinar", "D. Lanzoni", "A. Fantasia", "F. Rovaris", "R. Bergamaschini", "F. Montalenti"], me: 0, equal: [0, 1], corr: [0, 4],
+    venue: "<em>Computational Materials Science</em> 249, 113657 (2025)",
+    roles: ["co-first author", "corresponding author"], oa: false,
+    doi: "10.1016/j.commatsci.2024.113657", arxiv: "2405.03049", pdf: "https://uvadoc.uva.es/handle/10324/77889",
+    data: "https://doi.org/10.24435/materialscloud:ta-fz",
+    abs: "A fully convolutional network is trained to predict the elastic energy density at the free surface of an undulated, stressed film, taking a Ge film under the ~4% compressive misfit of Si(001) as the test case. About 190,000 random profiles generated with Perlin noise are labelled with a semi-analytical Green's-function approximation. Training on the full dataset and on subsets quantifies how accuracy depends on the data, and the network is then used inside surface-diffusion simulations of island formation and coarsening.",
+    bib: `@article{MartinEncinar2025CMS,
+  author  = {Martín-Encinar, Luis and Lanzoni, Daniele and Fantasia, Andrea and Rovaris, Fabrizio and Bergamaschini, Roberto and Montalenti, Francesco},
+  title   = {Quantitative analysis of the prediction performance of a Convolutional Neural Network evaluating the surface elastic energy of a strained film},
+  journal = {Computational Materials Science},
+  volume  = {249},
+  pages   = {113657},
+  year    = {2025},
+  doi     = {10.1016/j.commatsci.2024.113657},
+  eprint  = {2405.03049},
+  archivePrefix = {arXiv}
+}`
+  },
+  {
+    id: "aplml2024", type: "journal", year: 2024, selected: true, motif: "growth", seed: 21, badge: "APL ML",
+    title: "Accelerating simulations of strained-film growth by deep learning: Finite element method accuracy over long time scales",
+    authors: ["D. Lanzoni", "F. Rovaris", "L. Martín-Encinar", "A. Fantasia", "R. Bergamaschini", "F. Montalenti"], me: 2,
+    venue: "<em>APL Machine Learning</em> 2, 036108 (2024)",
+    roles: [], oa: true,
+    doi: "10.1063/5.0221363", data: "https://doi.org/10.24435/materialscloud:5r-9j",
+    abs: "A convolutional neural network is trained on a large set of randomized Ge film profiles paired with elastic energy densities computed by the finite element method. Plugged into continuum simulations of strained-film growth, the network replaces the FEM solver and keeps its accuracy over long time scales at a much lower cost.",
+    bib: `@article{Lanzoni2024APLML,
+  author  = {Lanzoni, Daniele and Rovaris, Fabrizio and Martín-Encinar, Luis and Fantasia, Andrea and Bergamaschini, Roberto and Montalenti, Francesco},
+  title   = {Accelerating simulations of strained-film growth by deep learning: Finite element method accuracy over long time scales},
+  journal = {APL Machine Learning},
+  volume  = {2},
+  number  = {3},
+  pages   = {036108},
+  year    = {2024},
+  doi     = {10.1063/5.0221363}
+}`
+  },
+  {
+    id: "ats2023", type: "journal", year: 2023, selected: true, motif: "diffusion", seed: 4, badge: "ATS",
+    title: "Concurrent Characterization of Surface Diffusion and Intermixing of Ge on Si: A Classical Molecular Dynamics Study",
+    authors: ["L. Martín-Encinar", "L. A. Marqués", "I. Santos", "P. López", "L. Pelaz"], me: 0, corr: [0],
+    venue: "<em>Advanced Theory and Simulations</em> 6, 2200848 (2023)",
+    roles: ["first author", "corresponding author"], oa: true,
+    doi: "10.1002/adts.202200848", pdf: "https://uvadoc.uva.es/handle/10324/58974",
+    abs: "Surface diffusion and intermixing of Ge ad-atoms on Si(001) 2×1 are characterized with classical molecular dynamics, comparing several interatomic potentials, parametrizations and mixing rules. A new simulation scheme extracts the effective frequencies of diffusion and intermixing events despite the difficulties these heterosystems pose, both on bare Si and on Si covered with Ge layers.",
+    bib: `@article{MartinEncinar2023ATS,
+  author  = {Martín-Encinar, Luis and Marqués, Luis Alberto and Santos, Iván and López, Pedro and Pelaz, Lourdes},
+  title   = {Concurrent Characterization of Surface Diffusion and Intermixing of Ge on Si: A Classical Molecular Dynamics Study},
+  journal = {Advanced Theory and Simulations},
+  volume  = {6},
+  number  = {5},
+  pages   = {2200848},
+  year    = {2023},
+  doi     = {10.1002/adts.202200848}
+}`
+  },
+  {
+    id: "cde2023md", type: "conference", year: 2023, motif: "stress", seed: 8, badge: "CDE",
+    title: "Molecular Dynamics Study of Stress Relaxation During Ge Deposition on Si(100) 2×1 Substrates",
+    authors: ["L. Martín-Encinar", "L. A. Marqués", "M. Aboy", "P. López", "I. Santos", "L. Pelaz"], me: 0, corr: [0],
+    venue: "<em>14th Spanish Conference on Electron Devices (CDE)</em>, Valencia, pp. 1–4 (2023)",
+    roles: ["first author", "corresponding author"], oa: false,
+    doi: "10.1109/CDE58627.2023.10339527", pdf: "https://www.ele.uva.es/~mmm/papers/2023_MartinEncinar_CDE23.pdf",
+    abs: "Epitaxial growth of Ge films on Si(001) 2×1 is simulated with classical molecular dynamics at different temperatures, quantifying how intermixing, dislocation formation and surface islands each contribute to relaxing the film stress.",
+    bib: `@inproceedings{MartinEncinar2023CDE,
+  author    = {Martín-Encinar, Luis and Marqués, Luis A. and Aboy, María and López, Pedro and Santos, Iván and Pelaz, Lourdes},
+  title     = {Molecular Dynamics Study of Stress Relaxation During Ge Deposition on Si(100) 2×1 Substrates},
+  booktitle = {2023 14th Spanish Conference on Electron Devices (CDE)},
+  address   = {Valencia, Spain},
+  pages     = {1--4},
+  year      = {2023},
+  doi       = {10.1109/CDE58627.2023.10339527}
+}`
+  },
+  {
+    id: "cde2023pv", type: "conference", year: 2023, motif: "cluster", seed: 5, badge: "CDE",
+    title: "First Principles Characterization of PnVm Clusters in Crystalline Silicon",
+    authors: ["I. Santos", "M. Aboy", "P. López", "L. Martín-Encinar", "L. A. Marqués", "L. Pelaz"], me: 3,
+    venue: "<em>14th Spanish Conference on Electron Devices (CDE)</em>, Valencia, pp. 1–4 (2023)",
+    roles: [], oa: false,
+    doi: "10.1109/CDE58627.2023.10339444",
+    abs: "Ab initio calculations of P<sub>n</sub>V<sub>m</sub> (n = 1–6, m = 1, 2) clusters in crystalline Si give their formation energies, dipole moments and local vibrational modes. The results are used to discuss which complexes are most relevant in doping by epitaxial growth or ion implantation, and how they may behave under microwave annealing, a promising process for technology nodes beyond 3 nm.",
+    bib: `@inproceedings{Santos2023CDE,
+  author    = {Santos, Iván and Aboy, María and López, Pedro and Martín-Encinar, Luis and Marqués, Luis A. and Pelaz, Lourdes},
+  title     = {First Principles Characterization of {P$_n$V$_m$} Clusters in Crystalline Silicon},
+  booktitle = {2023 14th Spanish Conference on Electron Devices (CDE)},
+  address   = {Valencia, Spain},
+  pages     = {1--4},
+  year      = {2023},
+  doi       = {10.1109/CDE58627.2023.10339444}
+}`
+  },
+  {
+    id: "cde2018", type: "conference", year: 2018, motif: "potential", seed: 2, badge: "CDE",
+    title: "Modeling SiGe through classical molecular dynamics simulations: chasing an appropriate empirical potential",
+    authors: ["L. Martín", "I. Santos", "P. López", "L. A. Marqués", "M. Aboy", "L. Pelaz"], me: 0,
+    venue: "<em>2018 Spanish Conference on Electron Devices (CDE)</em>, Salamanca, pp. 1–4 (2018)",
+    roles: ["first author"], oa: true,
+    doi: "10.1109/CDE.2018.8597030", pdf: "http://uvadoc.uva.es/handle/10324/33903",
+    abs: "Several empirical potentials from the literature are tested on their ability to reproduce basic properties of Si, Ge and SiGe with classical molecular dynamics. The best compromise is then used to study the stability of the (100), (100)2×1 and (111) surfaces and to find the processing temperature range that avoids their structural degradation.",
+    bib: `@inproceedings{Martin2018CDE,
+  author    = {Martín, Luis and Santos, Iván and López, Pedro and Marqués, Luis A. and Aboy, María and Pelaz, Lourdes},
+  title     = {Modeling SiGe through classical molecular dynamics simulations: chasing an appropriate empirical potential},
+  booktitle = {2018 Spanish Conference on Electron Devices (CDE)},
+  address   = {Salamanca, Spain},
+  pages     = {1--4},
+  year      = {2018},
+  doi       = {10.1109/CDE.2018.8597030}
+}`
+  },
+  {
+    id: "mc2024a", type: "dataset", year: 2024, motif: "dataset", seed: 31, badge: "Data",
+    title: "A FEM dataset of Ge film profiles and elastic energies for machine learning approximation of strain state and morphological evolution",
+    authors: ["D. Lanzoni", "F. Rovaris", "L. Martín-Encinar", "A. Fantasia", "R. Bergamaschini", "F. Montalenti"], me: 2,
+    venue: "<em>Materials Cloud Archive</em> 2024.59 (2024)",
+    roles: [], oa: true,
+    doi: "10.24435/materialscloud:5r-9j",
+    abs: "About 80,000 two-dimensional strained Ge film profiles on Si, each with the elastic energy density and strain field computed by the finite element method. Companion dataset of the APL Machine Learning paper.",
+    bib: `@misc{Lanzoni2024data,
+  author    = {Lanzoni, Daniele and Rovaris, Fabrizio and Martín-Encinar, Luis and Fantasia, Andrea and Bergamaschini, Roberto and Montalenti, Francesco},
+  title     = {A FEM dataset of Ge film profiles and elastic energies for machine learning approximation of strain state and morphological evolution},
+  publisher = {Materials Cloud Archive},
+  note      = {2024.59},
+  year      = {2024},
+  doi       = {10.24435/materialscloud:5r-9j}
+}`
+  },
+  {
+    id: "mc2024b", type: "dataset", year: 2024, motif: "dataset", seed: 37, badge: "Data",
+    title: "Deep learning of surface elastic chemical potential in strained films: from statics to dynamics",
+    authors: ["L. Martín-Encinar", "D. Lanzoni", "A. Fantasia", "F. Rovaris", "R. Bergamaschini", "F. Montalenti"], me: 0,
+    venue: "<em>Materials Cloud Archive</em> 2024.10 (2024)",
+    roles: ["first author"], oa: true,
+    doi: "10.24435/materialscloud:ta-fz",
+    abs: "Dataset and test cases (statics and dynamics) for a convolutional neural network that predicts the elastic contribution to the chemical potential at the surface of a 2D strained film from its profile. Companion dataset of the Computational Materials Science paper.",
+    bib: `@misc{MartinEncinar2024data,
+  author    = {Martín-Encinar, Luis and Lanzoni, Daniele and Fantasia, Andrea and Rovaris, Fabrizio and Bergamaschini, Roberto and Montalenti, Francesco},
+  title     = {Deep learning of surface elastic chemical potential in strained films: from statics to dynamics},
+  publisher = {Materials Cloud Archive},
+  note      = {2024.10},
+  year      = {2024},
+  doi       = {10.24435/materialscloud:ta-fz}
+}`
+  },
+  {
+    id: "phd2025", type: "thesis", year: 2025, motif: "thesis", seed: 13, badge: "PhD",
+    title: "Multiscale modelling of Ge heteroepitaxy on Si",
+    authors: ["L. Martín Encinar"], me: 0,
+    venue: "PhD thesis, <em>Universidad de Valladolid</em> (2025). Supervisors: L. A. Marqués and L. Pelaz",
+    roles: ["Cum Laude", "International Doctorate"], oa: true,
+    url: "https://uvadoc.uva.es/handle/10324/76343",
+    abs: "A multiscale framework for the heteroepitaxial growth of pure Ge and high-Ge SiGe layers on Si, combining ab initio calculations and classical molecular dynamics with continuum models accelerated by neural networks.",
+    bib: `@phdthesis{MartinEncinar2025PhD,
+  author = {Martín Encinar, Luis},
+  title  = {Multiscale modelling of Ge heteroepitaxy on Si},
+  school = {Universidad de Valladolid},
+  year   = {2025},
+  url    = {https://uvadoc.uva.es/handle/10324/76343}
+}`
+  }
+];
+/* ===================== END OF EDIT AREA ===================== */
+
+const TYPE_LABEL = { journal: "Journal articles", conference: "Conference papers", dataset: "Open datasets", thesis: "PhD thesis", prep: "In preparation" };
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+function authorsHTML(p) {
+  return p.authors.map((a, i) => {
+    let s = esc(a);
+    if (i === p.me) s = `<span class="me">${s}</span>`;
+    if (p.equal && p.equal.includes(i)) s += "*";
+    if (p.corr && p.corr.includes(i)) s += "†";
+    return s;
+  }).join(", ");
+}
+
+function pubHTML(p, prefix) {
+  const uid = prefix + "-" + p.id;
+  const links = [];
+  if (p.abs) links.push(`<button class="btn" type="button" aria-expanded="false" aria-controls="${uid}-abs" data-toggle="${uid}-abs">Abs</button>`);
+  if (p.bib) links.push(`<button class="btn" type="button" aria-expanded="false" aria-controls="${uid}-bib" data-toggle="${uid}-bib">Bib</button>`);
+  if (p.doi) links.push(`<a class="btn" href="https://doi.org/${esc(p.doi)}">DOI</a>`);
+  if (p.url) links.push(`<a class="btn" href="${esc(p.url)}">UVaDOC</a>`);
+  if (p.arxiv) links.push(`<a class="btn" href="https://arxiv.org/abs/${esc(p.arxiv)}">arXiv</a>`);
+  if (p.pdf) links.push(`<a class="btn" href="${esc(p.pdf)}">PDF</a>`);
+  if (p.data) links.push(`<a class="btn" href="${esc(p.data)}">Data</a>`);
+  const badges = (p.roles || []).map(r => `<span class="badge role">${esc(r)}</span>`);
+  if (p.oa) badges.push(`<span class="badge oa">open access</span>`);
+  return `<li class="pub" id="${uid}">
+    <div class="thumb-wrap">
+      <canvas class="thumb" data-motif="${p.motif}" data-seed="${p.seed}" aria-hidden="true"></canvas>
+      <span class="venue-badge${p.type === "prep" ? " prep" : ""}">${esc(p.badge)}</span>
+    </div>
+    <div>
+      <div class="pub-title">${p.title.replace("PnVm", "P<sub>n</sub>V<sub>m</sub>")}</div>
+      <div class="pub-authors">${authorsHTML(p)}</div>
+      <div class="pub-venue">${p.venue}</div>
+      ${badges.length ? `<div class="badges">${badges.join("")}</div>` : ""}
+      ${links.length ? `<div class="pub-links">${links.join("")}</div>` : ""}
+      ${p.abs ? `<div class="pub-abs" id="${uid}-abs" hidden>${p.abs}</div>` : ""}
+      ${p.bib ? `<div class="pub-bib" id="${uid}-bib" hidden><pre>${esc(p.bib)}</pre><button class="btn copy" type="button" data-copy="${uid}-bib">Copy</button></div>` : ""}
+    </div>
+  </li>`;
+}
+
+function renderPubs() {
+  document.getElementById("selected-pubs").innerHTML =
+    PUBS.filter(p => p.selected).map(p => pubHTML(p, "sel")).join("");
+
+  const counts = {};
+  PUBS.forEach(p => counts[p.type] = (counts[p.type] || 0) + 1);
+  document.getElementById("pub-counts").innerHTML = ["journal", "conference", "dataset", "thesis", "prep"]
+    .filter(t => counts[t])
+    .map(t => `<div class="count"><b>${counts[t]}</b>${TYPE_LABEL[t]}</div>`).join("");
+
+  const order = { journal: 0, conference: 1, dataset: 2, thesis: 3 };
+  const groups = [];
+  const prep = PUBS.filter(p => p.type === "prep");
+  if (prep.length) groups.push({ label: "In prep.", small: true, items: prep });
+  [...new Set(PUBS.filter(p => p.year).map(p => p.year))].sort((a, b) => b - a).forEach(y => {
+    groups.push({ label: y, items: PUBS.filter(p => p.year === y).sort((a, b) => order[a.type] - order[b.type]) });
+  });
+  document.getElementById("pub-years").innerHTML = groups.map(g =>
+    `<div class="year-group"><div class="year${g.small ? " small" : ""}">${g.label}</div><ul class="pubs">${g.items.map(p => pubHTML(p, "all")).join("")}</ul></div>`
+  ).join("");
+}
+
+function renderLinks() {
+  document.getElementById("links").innerHTML = LINKS.filter(l => l.url)
+    .map(l => `<a class="link-chip" href="${esc(l.url)}">${esc(l.label)}</a>`).join("");
+}
+
+/* ---------- interactions ---------- */
+document.addEventListener("click", e => {
+  const tog = e.target.closest("[data-toggle]");
+  if (tog) {
+    const box = document.getElementById(tog.dataset.toggle);
+    const open = box.hidden;
+    box.hidden = !open;
+    tog.setAttribute("aria-expanded", String(open));
+    return;
+  }
+  const cp = e.target.closest("[data-copy]");
+  if (cp) {
+    const text = document.querySelector("#" + cp.dataset.copy + " pre").textContent;
+    const done = ok => { cp.textContent = ok ? "Copied" : "Select and copy"; setTimeout(() => cp.textContent = "Copy", 1600); };
+    try { navigator.clipboard.writeText(text).then(() => done(true), () => done(false)); } catch (err) { done(false); }
+    return;
+  }
+  const rel = e.target.closest("[data-pub]");
+  if (rel) {
+    e.preventDefault();
+    if (location.hash !== "#publications") { location.hash = "publications"; }
+    requestAnimationFrame(() => {
+      const el = document.getElementById("all-" + rel.dataset.pub);
+      if (el) el.scrollIntoView({ block: "start" });
+    });
+  }
+});
+
+/* ---------- router ---------- */
+const VIEWS = ["about", "research", "publications", "cv"];
+function route() {
+  const name = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "about";
+  document.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.name !== name);
+  document.querySelectorAll(".nav a").forEach(a => {
+    if (a.dataset.view === name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+  window.scrollTo(0, 0);
+  drawAll();
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- illustrations (canvas) ---------- */
+function rng(seed) {
+  let a = seed >>> 0;
+  return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+function colors() {
+  const cs = getComputedStyle(document.documentElement);
+  const g = n => cs.getPropertyValue(n).trim();
+  return { bg: g("--surface"), ink: g("--ink"), muted: g("--muted"), rule: g("--rule"), accent: g("--accent"), si: g("--si"), ge: g("--ge"), page: g("--bg") };
+}
+function dot(ctx, x, y, r, fill) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = fill; ctx.fill(); }
+
+const MOTIFS = {
+  // transition-metal-doped carbon layer with H2 molecules
+  hydrogen(ctx, w, h, C, R) {
+    const a = Math.max(9, h / 8.5), s3 = Math.sqrt(3);
+    const atoms = [];
+    for (let j = -1; j * 1.5 * a < h + 2 * a; j++) for (let i = -1; i * s3 * a < w + 2 * a; i++) {
+      const x0 = i * s3 * a + (j % 2 ? s3 * a / 2 : 0), y0 = j * 1.5 * a;
+      atoms.push([x0, y0], [x0, y0 + a]);
+    }
+    ctx.strokeStyle = C.si; ctx.lineWidth = 1.4; ctx.globalAlpha = 0.75; ctx.beginPath();
+    for (let p = 0; p < atoms.length; p++) for (let q = p + 1; q < atoms.length; q++) {
+      const dx = atoms[p][0] - atoms[q][0], dy = atoms[p][1] - atoms[q][1];
+      if (dx * dx + dy * dy < a * a * 1.05) { ctx.moveTo(atoms[p][0], atoms[p][1]); ctx.lineTo(atoms[q][0], atoms[q][1]); }
+    }
+    ctx.stroke(); ctx.globalAlpha = 1;
+    atoms.forEach(([x, y]) => dot(ctx, x, y, a * 0.16, C.si));
+    const nTM = Math.max(2, Math.round(w / 170));
+    for (let k = 0; k < nTM; k++) {
+      const tx = (k + 0.5) / nTM * w + (R() - 0.5) * a * 2, ty = h * (0.3 + R() * 0.4);
+      let best = atoms[0], bd = 1e9;
+      atoms.forEach(at => { const d = (at[0] - tx) ** 2 + (at[1] - ty) ** 2; if (d < bd) { bd = d; best = at; } });
+      dot(ctx, best[0], best[1], a * 0.42, C.ge);
+      const nH = 2 + Math.floor(R() * 2);
+      for (let m = 0; m < nH; m++) {
+        const ang = (m / nH) * Math.PI * 2 + R(), rr = a * 0.95;
+        const cx = best[0] + Math.cos(ang) * rr, cy = best[1] + Math.sin(ang) * rr, o = ang + Math.PI / 2;
+        const dx = Math.cos(o) * a * 0.17, dy = Math.sin(o) * a * 0.17;
+        ctx.strokeStyle = C.accent; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx - dx, cy - dy); ctx.lineTo(cx + dx, cy + dy); ctx.stroke();
+        dot(ctx, cx - dx, cy - dy, a * 0.16, C.accent); dot(ctx, cx + dx, cy + dy, a * 0.16, C.accent);
+      }
+    }
+  },
+
+  // Ge film with one column less than the Si substrate -> misfit dislocation
+  dislocation(ctx, w, h, C, R) {
+    const s = Math.max(9, Math.min(w, h) / 9), r = s * 0.32;
+    const nSub = Math.floor(w / s) + 2, rowsSub = Math.ceil((h * 0.45) / s);
+    const yInt = h * 0.55;
+    for (let j = 0; j < rowsSub; j++) for (let i = 0; i < nSub; i++)
+      dot(ctx, i * s + (j % 2) * s / 2 - s / 2, yInt + j * s, r, C.si);
+    const cx = w * 0.5, rowsFilm = Math.ceil(yInt / s), phase = R() * 6;
+    for (let j = 1; j <= rowsFilm; j++) for (let i = -1; i < nSub; i++) {
+      const x0 = i * s + (j % 2) * s / 2 - s / 2;
+      const x = x0 + s * 0.5 * (1 + Math.tanh((x0 - cx) / (1.4 * s))) - s * 0.5;
+      const top = yInt - (3.2 + 1.4 * Math.sin(x / w * 6.3 + phase) + 0.6 * Math.sin(x / w * 15 + phase * 2)) * s;
+      const y = yInt - j * s;
+      if (y > top) dot(ctx, x, y, r, C.ge);
+    }
+    const cy = yInt - s * 0.5;
+    const tee = () => { ctx.beginPath(); ctx.moveTo(cx - s * 0.6, cy); ctx.lineTo(cx + s * 0.6, cy); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - s * 1.1); ctx.stroke(); };
+    ctx.lineCap = "round";
+    ctx.strokeStyle = C.page; ctx.lineWidth = 6; tee();
+    ctx.strokeStyle = C.accent; ctx.lineWidth = 2.4; tee();
+  },
+
+  // film profile + predicted surface energy density
+  cnn(ctx, w, h, C, R) {
+    const n = 140, base = h * 0.72, amp = h * 0.13;
+    const k = [1 + R() * 2, 3 + R() * 3, 7 + R() * 4], ph = [R() * 6, R() * 6, R() * 6];
+    const hx = x => base - amp * (Math.sin(k[0] * x + ph[0]) * 0.6 + Math.sin(k[1] * x + ph[1]) * 0.3 + Math.sin(k[2] * x + ph[2]) * 0.15);
+    const curv = x => (k[0] ** 2 * Math.sin(k[0] * x + ph[0]) * 0.6 + k[1] ** 2 * Math.sin(k[1] * x + ph[1]) * 0.3 + k[2] ** 2 * Math.sin(k[2] * x + ph[2]) * 0.15);
+    ctx.fillStyle = C.si; ctx.fillRect(0, base + amp * 0.6, w, h);
+    ctx.beginPath(); ctx.moveTo(0, h);
+    for (let i = 0; i <= n; i++) { const x = i / n * 2 * Math.PI; ctx.lineTo(i / n * w, hx(x)); }
+    ctx.lineTo(w, h); ctx.closePath(); ctx.globalAlpha = 0.9; ctx.fillStyle = C.ge; ctx.fill(); ctx.globalAlpha = 1;
+    let mx = 0; for (let i = 0; i <= n; i++) mx = Math.max(mx, Math.abs(curv(i / n * 2 * Math.PI)));
+    const yE = h * 0.3, aE = h * 0.18;
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, yE); ctx.lineTo(w, yE); ctx.stroke();
+    ctx.strokeStyle = C.accent; ctx.lineWidth = 2; ctx.beginPath();
+    for (let i = 0; i <= n; i++) { const x = i / n * 2 * Math.PI; const y = yE + aE * curv(x) / mx; i ? ctx.lineTo(i / n * w, y) : ctx.moveTo(0, y); }
+    ctx.stroke();
+  },
+
+  // islands developing over time (three snapshots)
+  growth(ctx, w, h, C, R) {
+    const n = 120, base = h * 0.78;
+    ctx.fillStyle = C.si; ctx.fillRect(0, base, w, h);
+    const k = 3 + Math.floor(R() * 2), ph = R() * 6;
+    const prof = (x, t) => base - h * (0.08 + t * 0.06) - h * 0.32 * t * Math.max(0, Math.sin(k * x + ph)) ** (1.5 + 2 * (1 - t));
+    [0.25, 0.6, 1].forEach((t, idx) => {
+      ctx.beginPath(); ctx.moveTo(0, base);
+      for (let i = 0; i <= n; i++) ctx.lineTo(i / n * w, prof(i / n * 2 * Math.PI, t));
+      ctx.lineTo(w, base); ctx.closePath();
+      if (idx === 2) { ctx.globalAlpha = 0.9; ctx.fillStyle = C.ge; ctx.fill(); ctx.globalAlpha = 1; }
+      else { ctx.setLineDash([4, 4]); ctx.strokeStyle = C.accent; ctx.lineWidth = 1.5; ctx.stroke(); ctx.setLineDash([]); }
+    });
+  },
+
+  // top view of Si(001) 2x1 dimer rows with a Ge ad-atom hopping
+  diffusion(ctx, w, h, C, R) {
+    const s = Math.max(12, h / 6), r = s * 0.22;
+    for (let y = s * 0.6; y < h; y += s) for (let x = s * 0.4; x < w; x += s * 1.15) {
+      dot(ctx, x - s * 0.2, y, r, C.si); dot(ctx, x + s * 0.2, y, r, C.si);
+    }
+    const pts = []; let x = w * 0.2, y = h * 0.5;
+    for (let i = 0; i < 7; i++) { pts.push([x, y]); x += s * (0.5 + R() * 0.7); y += s * (R() - 0.5) * 1.4; y = Math.max(s, Math.min(h - s, y)); }
+    ctx.setLineDash([3, 4]); ctx.strokeStyle = C.accent; ctx.lineWidth = 1.8; ctx.beginPath();
+    pts.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.stroke(); ctx.setLineDash([]);
+    pts.forEach((p, i) => { if (i === pts.length - 1) dot(ctx, p[0], p[1], r * 1.7, C.ge); else dot(ctx, p[0], p[1], r * 0.6, C.accent); });
+    dot(ctx, w * 0.8, h * 0.25, r * 1.7, C.ge);
+  },
+
+  // compressed Ge film on Si with inward arrows
+  stress(ctx, w, h, C, R) {
+    const s = Math.max(9, h / 9), r = s * 0.32, yInt = h * 0.6;
+    for (let y = yInt; y < h + s; y += s) for (let x = 0; x < w + s; x += s) dot(ctx, x, y, r, C.si);
+    for (let j = 1; j <= 3; j++) for (let x = 0; x < w + s; x += s) dot(ctx, x, yInt - j * s, r, C.ge);
+    const ya = yInt - 4.6 * s;
+    ctx.strokeStyle = C.accent; ctx.fillStyle = C.accent; ctx.lineWidth = 2;
+    const arrow = (x0, x1) => { ctx.beginPath(); ctx.moveTo(x0, ya); ctx.lineTo(x1, ya); ctx.stroke();
+      const d = Math.sign(x1 - x0); ctx.beginPath(); ctx.moveTo(x1, ya); ctx.lineTo(x1 - d * 7, ya - 4); ctx.lineTo(x1 - d * 7, ya + 4); ctx.closePath(); ctx.fill(); };
+    arrow(w * 0.06, w * 0.36); arrow(w * 0.94, w * 0.64);
+  },
+
+  // P atoms around vacancies in a Si lattice
+  cluster(ctx, w, h, C, R) {
+    const s = Math.max(14, h / 6), r = s * 0.24;
+    const cols = Math.ceil(w / s) + 1, rows = Math.ceil(h / s) + 1;
+    const ci = Math.floor(cols / 2), cj = Math.floor(rows / 2);
+    const vac = new Set([`${ci},${cj}`, `${ci + 1},${cj}`]);
+    const pset = new Set([`${ci - 1},${cj}`, `${ci + 2},${cj}`, `${ci},${cj - 1}`, `${ci + 1},${cj + 1}`, `${ci},${cj + 1}`]);
+    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+      const x = i * s + (j % 2) * s / 2 - s / 4, y = j * s + s / 2 - s / 4, key = `${i},${j}`;
+      if (vac.has(key)) { ctx.setLineDash([3, 3]); ctx.strokeStyle = C.muted; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(x, y, r * 1.2, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
+      else dot(ctx, x, y, pset.has(key) ? r * 1.25 : r, pset.has(key) ? C.accent : C.si);
+    }
+  },
+
+  // two pair-potential curves
+  potential(ctx, w, h, C, R) {
+    const x0 = w * 0.1, y0 = h * 0.85;
+    ctx.strokeStyle = C.muted; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x0, h * 0.1); ctx.lineTo(x0, y0); ctx.lineTo(w * 0.95, y0); ctx.stroke();
+    const yZero = h * 0.45;
+    ctx.strokeStyle = C.rule; ctx.beginPath(); ctx.moveTo(x0, yZero); ctx.lineTo(w * 0.95, yZero); ctx.stroke();
+    [[1.0, 0.32, C.si], [1.12, 0.26, C.ge]].forEach(([rm, depth, col]) => {
+      ctx.strokeStyle = col; ctx.lineWidth = 2.2; ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const rr = 0.82 * rm + i / 100 * 1.4; const u = rm / rr;
+        const E = depth * (u ** 12 - 2 * u ** 6);
+        const x = x0 + (rr - 0.75) / 1.6 * (w * 0.85), y = yZero - E * h * 1.1;
+        if (y < h * 0.08) continue;
+        ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+  },
+
+  // grid of small random profiles
+  dataset(ctx, w, h, C, R) {
+    const cols = 3, rows = 2, pw = w / cols, ph = h / rows;
+    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+      const ox = i * pw, oy = j * ph, base = oy + ph * 0.78, a = ph * 0.22;
+      const k1 = 1 + R() * 3, k2 = 4 + R() * 5, p1 = R() * 6, p2 = R() * 6;
+      ctx.beginPath(); ctx.moveTo(ox + 4, base + a * 0.4);
+      for (let t = 0; t <= 30; t++) { const x = t / 30; ctx.lineTo(ox + 4 + x * (pw - 8), base - a * (0.6 * Math.sin(k1 * x * 6.28 + p1) + 0.4 * Math.sin(k2 * x * 6.28 + p2)) - a * 0.6); }
+      ctx.lineTo(ox + pw - 4, base + a * 0.4); ctx.closePath();
+      ctx.fillStyle = (i + j) % 2 ? C.ge : C.si; ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
+    }
+  },
+
+  // atoms -> continuum
+  thesis(ctx, w, h, C, R) {
+    const s = Math.max(8, h / 10), r = s * 0.3;
+    for (let y = h * 0.35; y < h; y += s) for (let x = s * 0.6; x < w * 0.42; x += s) dot(ctx, x, y, r, y < h * 0.55 ? C.ge : C.si);
+    ctx.strokeStyle = C.accent; ctx.fillStyle = C.accent; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(w * 0.46, h * 0.6); ctx.lineTo(w * 0.56, h * 0.6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(w * 0.58, h * 0.6); ctx.lineTo(w * 0.55, h * 0.56); ctx.lineTo(w * 0.55, h * 0.64); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = C.si; ctx.fillRect(w * 0.62, h * 0.7, w * 0.36, h * 0.3);
+    ctx.beginPath(); ctx.moveTo(w * 0.62, h * 0.7);
+    for (let i = 0; i <= 40; i++) { const x = i / 40; ctx.lineTo(w * (0.62 + 0.36 * x), h * 0.62 - h * 0.18 * Math.max(0, Math.sin(x * 9.4)) ** 2); }
+    ctx.lineTo(w * 0.98, h * 0.7); ctx.closePath(); ctx.fillStyle = C.ge; ctx.fill();
+  }
+};
+
+function drawCanvas(cv, C) {
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (!w || !h) return;
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const ctx = cv.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, w, h);
+  const f = MOTIFS[cv.dataset.motif];
+  if (f) f(ctx, w, h, C, rng(Number(cv.dataset.seed) || 1));
+}
+function drawAll() {
+  const C = colors();
+  document.querySelectorAll(".view:not([hidden]) canvas[data-motif]").forEach(cv => drawCanvas(cv, C));
+}
+
+let rt;
+window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(drawAll, 120); });
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll); } catch (e) {}
+new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "class"] });
+
+renderPubs();
+renderLinks();
+route();
+</script>
+</body>
+</html>
